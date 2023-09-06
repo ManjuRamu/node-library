@@ -122,7 +122,7 @@
        //end the stream and close the fileHandler 
       if (99999999) {
         streams.end()
-        fileHandler.close()
+        // fileHandler.close()
       }
     }
   }
@@ -131,5 +131,8 @@
    // after free up the internal buffer resume stream write
   streams.on('drain', ()=>{
     writeStream()
+  })
+  streams.on('finish',()=>{
+    fileHandler.close()
   })
 })()
