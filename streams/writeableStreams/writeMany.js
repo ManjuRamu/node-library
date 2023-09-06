@@ -1,5 +1,6 @@
 
 //fs sync 
+
 // (async function () {
 //   // Six core 
 //   // CPU - 32%
@@ -13,7 +14,10 @@
 //    console.timeEnd("witeManyFs")
 // })()
 
+
+
 // fs callback
+
 // (function () {
 //   const  fs  = require('node:fs')
 //   const process = require('process')
@@ -30,7 +34,10 @@
 //   })
 // })() 
 
+
+//streams fileWrite
 //Not good practice which took lot memory usage. Cause memory leakage on big files
+
 // (async function  () {
 //   //Execution time : 745.626ms
 //   //Memory usage : 10024 to 2021 MB
@@ -47,3 +54,74 @@
 //   // })
  
 // })()
+
+
+
+//Basics of streams -1
+//stream.writableHighWaterMark = 16384 by defaults
+
+// (async function  () {
+//   //Execution time : 745.626ms
+//   //Memory usage : 10024 to 2021 MB
+//   const fs = require('fs/promises')
+//   const buf = Buffer.from(" streams ",'utf-8')
+//   // console.time("witeManyStream")
+//   const fileHandle = await fs.open('writeManyStreams.txt','w')
+//   const stream = fileHandle.createWriteStream()
+//   // console.log(stream.writableHighWaterMark)  // default 16384 
+//   console.log(stream.writableLength)         // while running 
+//   stream.write(buf)
+//   stream.write(buf)
+//   stream.write(buf)
+//   console.log("writableLength: ",stream.writableLength)  // length of buf * write() invokes we write   
+// })()
+
+
+
+//Basics of streams -2
+
+// (async function  () {
+//   //Execution time : 745.626ms
+//   //Memory usage : 10024 to 2021 MB
+//   const fs = require('fs/promises')
+//   const buf = Buffer.alloc(16384, "a")
+//   const fileHandle = await fs.open('writeManyStreams.txt','w')
+//   const stream = fileHandle.createWriteStream()
+//   // console.log(stream.writableHighWaterMark)  // default 16384 
+//   console.log( stream.write(buf)) //buf length = 16383 then true & buf length > 16383 => false
+//   console.log("writableLength: ",stream.writableLength) 
+// })()
+
+// stream drain events in streams to make stream free up memory 
+// (async function () {
+//   const fs = require('fs/promises')
+//   const fileHandler = await fs.open("writeMany.txt",'w')
+//   const streams  = fileHandler.createWriteStream()
+//   const buf = Buffer.alloc(16384, "a")
+//   streams.write(buf)
+
+//   streams.on('drain', ()=>{
+//     console.log("Safe to write in streams ",streams.writableLength)
+//     streams.write(Buffer.alloc(2,"b"))
+//     // streams.write(Buffer.alloc(streams.writableHighWaterMark), "a") //which make infinite callback of an drain event make sure
+//   })
+// })()
+
+// streams write pretty enough creates 943 Mb file without memory leaks
+(async function () {
+  const fs = require("fs/promises")
+  const fileHandler  = await fs.open("writeManyStreamsDrain.txt",'w')
+  const streams = fileHandler.createWriteStream()
+  let i = 0;
+  function writeStream() {
+    while (i< 100000000) {
+      if (!streams.write(Buffer.from(` ${i} `)))
+       break;
+      i++;
+    }
+  }
+  writeStream()
+  streams.on('drain', ()=>{
+    writeStream()
+  })
+})()
