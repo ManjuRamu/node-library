@@ -120,7 +120,7 @@
        break;
        i++;
        //end the stream and close the fileHandler 
-      if (99999999) {
+      if (i === 99999999) {
         streams.end()
         // fileHandler.close()
       }
