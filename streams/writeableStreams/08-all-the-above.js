@@ -114,16 +114,20 @@
   const streams = fileHandler.createWriteStream()
   let i = 0;
   function writeStream() {
-    while (i< 100000000) {
+    while (i< 10000000) {
+    
+     
       // Pause the stream write if inter-buffer is full i.e writableLength >=  writableHighWaterMark
       if (!streams.write(Buffer.from(` ${i} `)))
        break;
-       i++;
+     
        //end the stream and close the fileHandler 
-      if (i === 99999999) {
+       if (i === 9999999) {
         streams.end()
         // fileHandler.close()
       }
+      i++;
+      
     }
   }
   writeStream()
