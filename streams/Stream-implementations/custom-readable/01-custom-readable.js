@@ -13,7 +13,7 @@ class fileReadStreams extends Readable{
       callback(err)
     })
   }
-  _read(size){
+  _read(size){ //size is highWaterMarkValue
     const buff = Buffer.alloc(size);
     fs.read(this.fd, buff, 0, size, null, (err, bytesRead) =>{
       if (err) {
