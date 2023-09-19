@@ -1,7 +1,7 @@
 // streams write pretty enough creates 943 Mb file without memory leaks
 (async function () {
   const fs = require("fs/promises")
-  const fileHandler  = await fs.open("writeManyStreamsDrain.txt",'w')
+  const fileHandler  = await fs.open("bigFile.txt",'w')
   const streams = fileHandler.createWriteStream()
   let i = 0;
   function writeStream() {
@@ -11,7 +11,7 @@
        break;
        i++;
        //end the stream and close the fileHandler 
-      if (99999999) {
+      if (i == 100000000) { // 69584441  
         streams.end()
       }
     }

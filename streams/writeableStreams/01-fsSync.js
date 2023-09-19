@@ -6,7 +6,7 @@
   const fs = require("fs/promises")
   console.time("witeManyFs")
   const fileHandler = await fs.open("witeMany.txt",'w')
-  for (let i = 0; i<10000000;i++)
+  for (let i = 0; i<1000;i++)
    await  fileHandler.write(`${i} `)
    console.timeEnd("witeManyFs")
 })()

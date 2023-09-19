@@ -1,6 +1,5 @@
 (function () {
   const  fs  = require('node:fs')
-  const process = require('process')
   console.time("witeManyFsCb")
    // Six core 
    // CPU - 22%
