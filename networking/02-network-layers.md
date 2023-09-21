@@ -10,7 +10,7 @@ Bottom up
 # network layers  
  They use IP address to find particular machine. Choose router 
 # Transport
- Uses segments If any pocket loss it resend data. Ask src to send again
+ Uses segments If any pocket loss it resend data. Ask src to send again. TCP/UDP
 # Application layers
  Normal app, like HTTP, EMAIL, FTP etc. Handles data 
   ![alt text](https://github.com/ManjuRamu/node-library/public/git/images/router_network.PNG?raw=true)

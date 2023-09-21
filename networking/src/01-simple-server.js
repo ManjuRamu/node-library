@@ -6,7 +6,7 @@ working on my wifi/IPS network provider interface
 with my private ip  */
 const hostname = "192.168.6.19" 
 const server = http.createServer((req, res)=>{
-  const data ={message:"hello server working fine!"}
+  const data ={message:"Server working fine!"}
   res.setHeader("Content-type", "application/json")
   res.setHeader("Connection", "close");
   res.statusCode = 200;
