@@ -1,13 +1,13 @@
- ![alt text](https://github.com/ManjuRamu/node-library/public/git/images/Capture.PNG?raw=true)
+ ![alt text](https://github.com/ManjuRamu/node-library/blob/main/public/git/images/Capture.PNG?raw=true)
  The buffer container array has invalid start and end element in 04-even-numbers-write.js
  Cause: 
   - It slices the binary data into buffer that time it slices the data.
 
  That buffer array continued number in next first element  
-  ![alt text](https://github.com/ManjuRamu/node-library/public/git/images/sliced-data.PNG?raw=true)
+  ![alt text](https://github.com/ManjuRamu/node-library/blob/main/public/git/images/sliced-data.PNG?raw=true)
  
  Invalid data stores in file:
-  ![alt text](https://github.com/ManjuRamu/node-library/public/git/images/invalid-data-stores.PNG?raw=true)
+  ![alt text](https://github.com/ManjuRamu/node-library/blob/main/public/git/images/invalid-data-stores.PNG?raw=true)
   
 example: 
  utf-8 1 char= 8 bits

@@ -13,6 +13,6 @@ Bottom up
  Uses segments If any pocket loss it resend data. Ask src to send again. TCP/UDP
 # Application layers
  Normal app, like HTTP, EMAIL, FTP etc. Handles data 
-  ![alt text](https://github.com/ManjuRamu/node-library/public/git/images/router_network.PNG?raw=true)
+  ![alt text](https://github.com/ManjuRamu/node-library/blob/main/public/git/images/router_network.PNG?raw=true)
 
 We have diff model concept like TCP/IP, OSI. Layers are different   

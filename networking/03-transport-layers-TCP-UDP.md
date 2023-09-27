@@ -18,7 +18,7 @@ Works with segments data transfer from point A to point B, adds some port number
   - datagram built on UDP
 
  TCP Headers:    
-  ![alt text](https://github.com/ManjuRamu/node-library/public/git/images/TCP-Header.PNG?raw=true)
+  ![alt text](https://github.com/ManjuRamu/node-library/blob/main/public/git/images/TCP-Header.PNG?raw=true)
   - source port running on 
   - destination port
   - Sequence Number (brief not in dept): pockets are on          sequentially so they can find data loss, like 1,2,3

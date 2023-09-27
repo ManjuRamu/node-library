@@ -8,7 +8,7 @@ Basic network like LAN
 Routes on the top of switch so we connect multiple networks with can established connection between computers in diff network
  - Router has unique IP.
  - And Router assign IP to all computer connected to it. 
- ![alt text](https://github.com/ManjuRamu/node-library/public/git/images/router_network.PNG?raw=true)
+ ![alt text](https://github.com/ManjuRamu/node-library/blob/main/public/git/images/router_network.PNG?raw=true)
  - So all computer can talk with each other using IP address.
  - Where we connect all computer using public IPs which is called internet. It can be anything
    Ex: Cellular network, wifi, LAN etc.
