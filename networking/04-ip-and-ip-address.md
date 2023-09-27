@@ -8,8 +8,8 @@ binary to decimal convert that is the IP address
 
 
 # **Parts of **
- 1. Network
- 2. Host
+** 1. Network
+ 2. Host**
 subnets mask decide which is network and host portion
 subnets mask is also 32 bits like IP address
 1 represents network portion 
