@@ -7,7 +7,7 @@ binary to decimal convert that is the IP address
 0.0.0.0 to 255.255.255.255 is the range of IP address
 
 
-# Parts of 
+# **Parts of **
  1. Network
  2. Host
 subnets mask decide which is network and host portion
