@@ -7,7 +7,7 @@ binary to decimal convert that is the IP address
 0.0.0.0 to 255.255.255.255 is the range of IP address
 
 
-# Parts of 
+# Parts of IP-V4
  1. Network
  2. Host
 subnets mask decide which is network and host portion
@@ -24,4 +24,7 @@ Subnet structure
  IP/no of ones in subnet mask 
  192.168.6.19/16 => first 16 bits for network last 16 for host
  ![alt text](https://github.com/ManjuRamu/node-library/blob/main/public/git/images/ip-v4.PNG?raw=true)
+The above IP supports 65535 - 1 devices for broadcast
 
+NAT - Network address translator:    
+ - Translate private IP to public IP address.
