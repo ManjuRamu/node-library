@@ -14,32 +14,25 @@ server.on('connection', (socket) => {
       socket.pause()
       fileWriteHandle = await openFile(config.FILE_DESTINATION)
       fileWriteStream = fileWriteHandle.createWriteStream()
+      fileWriteStream?.on('drain', ()=>{
+        socket.resume()
+      })
       if (!fileWriteStream.write(chunk)) {
         socket.pause();
-        // socket.write('pause')
       }
      else socket.resume()
     }
     else{
-      if (!fileWriteStream.write(chunk)) {
+      if (!fileWriteStream.write(chunk)) 
         socket.pause()
-        // socket.write('pause')
-      }
     }
-
-    fileWriteStream?.on('drain', ()=>{
-      // socket.write('resume')
-      // console.log("resume")
-      socket.resume()
-    })
-   
   })
   
-  
-
-  socket.on('end', () => {
+  socket.on('end',async () => {
     console.log("connection ended!")
-    fileWriteHandle.close()
+    await fileWriteHandle.close()
+    fileWriteHandle = undefined;
+    socket.end()
   })
 })
 server.listen(config.PORT, config.HOST, () => {
