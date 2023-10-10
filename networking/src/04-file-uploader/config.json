@@ -1,6 +1,6 @@
 {
   "PORT":3000,
   "HOST":"127.0.0.1", 
-  "FILE_SOURCE":"./../sources/read.txt", 
-  "FILE_DESTINATION" :"./../destinations/write.txt"
+  "FILE_SOURCE":"./../sources/video.mp4", 
+  "FILE_DESTINATION" :"./../destinations/video.mp4"
 }
