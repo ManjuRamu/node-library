@@ -13,12 +13,12 @@ const server = http.createServer(async (req, res)=>{
   let fileReadStream = fileHandle.createReadStream() 
   fileReadStream.on('data', (chunk) =>{
     if (!res.write(chunk)) {
-      // fileReadStream.pause()
+      fileReadStream.pause()
     }
   })
-  // res.on('drain', () =>{
-  //   fileReadStream.resume()
-  // } )
+  res.on('drain', () =>{
+    fileReadStream.resume()
+  } )
   // const data ={message:"Server working fine!"}
   res.setHeader("Content-type", "video/mp4")
   res.setHeader("Connection", "close");
