@@ -8,8 +8,8 @@ const server = net.createServer()
 async function openFile(filePath) {
   return await fs.open(filePath, 'w')
 }
-let fileWriteHandle, fileWriteStream, fileName;;
 server.on('connection', (socket) => {
+  let fileWriteHandle, fileWriteStream, fileName;
 
   socket.on('data', async (chunk) => {
     try {

@@ -1,0 +1,1 @@
+UDP is connection less, without server we send data there is no guarantee in delivery the data
