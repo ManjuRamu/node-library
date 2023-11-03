@@ -26,8 +26,10 @@ const socket = net.createConnection({
   const filePath = process.argv[2]
   fileName = path.basename(filePath);
   socket.write(JSON.stringify({ fileName }));
-  // const readFileHandler = await fs.open(config.FILE_SOURCE.replace(path.basename(config.FILE_SOURCE), fileName), 'r')
-  const readFileHandler = await fs.open(filePath, 'r');
+  // current folder file
+  const readFileHandler = await fs.open(config.FILE_SOURCE.replace(path.basename(config.FILE_SOURCE), fileName), 'r')
+   // from any place - complete path required
+  //  const readFileHandler = await fs.open(filePath, 'r');
    fileSize = (await readFileHandler.stat()).size; // in bytes
   fileReadStream = readFileHandler.createReadStream()
   let previous = 0
