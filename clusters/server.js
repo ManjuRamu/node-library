@@ -9,12 +9,15 @@ const server = http.createServer((req, res) => {
 
     case "/blocking":
       let i = 0;
+    //  setImmediate(()=>{
       for (; i < 5000000000; i++) {
         // console.log(i)
       }
       res.setHeader("Content-Type","text/plain");
       res.write("blocking response "+ i);
       res.end()
+    //  })
+     
      
       break;
 

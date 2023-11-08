@@ -11,6 +11,7 @@ const server = http.createServer(async (req, res)=>{
   
   let fileHandle = await fs.open("../04-file-uploader/sources/big-1gb.mp4", 'r');
   let fileReadStream = fileHandle.createReadStream() 
+  // fileReadStream.pipe(res) // we can do this as well
   fileReadStream.on('data', (chunk) =>{
     if (!res.write(chunk)) {
       fileReadStream.pause()
@@ -23,6 +24,9 @@ const server = http.createServer(async (req, res)=>{
   res.setHeader("Content-type", "video/mp4")
   res.setHeader("Connection", "close");
   res.statusCode = 200;
+  fileReadStream.on('error', (err)=>{
+  console.log(err);
+  })
   fileReadStream.on('end', ()=>{
     console.log("completed")
     res.end();
