@@ -1,0 +1,78 @@
+openapi: 3.0.0
+info:
+  title: Simple swagger application
+  version: 1.0.0
+  description: This is a REST API application made with Express. It retrieves data
+    from JSONPlaceholder.
+  # license:
+  #   name: Licensed Under MIT
+  #   url: https://spdx.org/licenses/MIT.html
+  # contact:
+  #   name: JSONPlaceholder
+  #   url: https://spdx.org/licenses/MIT.html
+servers:
+- url: http://localhost:3000
+  description: Development server
+- url: http://182.75.137.154:3000
+  description: ip based server server  
+paths:
+  /users:
+    post:
+      summary: Creates a user.
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                name:
+                  type: string
+                age:
+                  type: integer 
+                  minimum: 10  
+              required:
+              - name
+              - age
+      responses:
+        '201':
+          description: Created
+        '404':
+         $ref: '#/components/responses/requestBodyError'  
+  /users/{id}:
+    delete:
+      summary: Delete user
+      security:
+       - bearerAuth: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: UserId
+        schema:
+            type : integer
+            minimum: 1
+      responses: 
+          '201':
+           description: Created
+          '401':
+           $ref: '#/components/responses/UnauthorizedError'
+          '501':
+           $ref: '#/components/responses/internalServerError'
+        
+components:
+  securitySchemes:
+    bearerAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT  
+  security:
+    - bearerAuth: [/users]   
+  responses:
+    UnauthorizedError:
+      description: Authentication information is missing or invalid
+    internalServerError:
+      description: Something went wrong!
+    requestBodyError:
+      description: missing required field
+     
