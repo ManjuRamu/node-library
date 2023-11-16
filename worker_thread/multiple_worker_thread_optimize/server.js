@@ -17,7 +17,7 @@ function workerHandler() {
   })
 }
 
-app.get("/blocking-worker", async (req,res) =>{
+app.get("/blocking-worker", async (req,res ) =>{
    const workerResultsPromises = [];
    for (let i = 0; i < thread_count; i++) {
     workerResultsPromises.push(workerHandler())
@@ -33,7 +33,7 @@ app.get("/non-blocking", (req,res) =>{
 
 app.get("/blocking", (req,res) =>{
   let count = 0;
-  for (let i = 0; i < 10000000000; i++) {
+  for (let i = 0; i < 5000000000; i++) {
      count++;
   }
     res.status(200).send({count})
