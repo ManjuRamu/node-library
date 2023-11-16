@@ -1,3 +1,4 @@
+# https://petstore3.swagger.io/#/
 openapi: 3.0.0
 info:
   title: Simple swagger application
@@ -10,15 +11,26 @@ info:
   # contact:
   #   name: JSONPlaceholder
   #   url: https://spdx.org/licenses/MIT.html
+tags:
+ - name: users
+   description: Everything about user-profile
+ - name: admin
+   description: Everything about admin
 servers:
 - url: http://localhost:3000
-  description: Development server
-- url: http://182.75.137.154:3000
-  description: ip based server server  
+  description: loop back domain based server
+- url: http://192.168.6.19:3000
+  description: private ip based server server  
 paths:
   /users:
     post:
+      tags:
+        - users
+      operationId: createUser
       summary: Creates a user.
+      security:
+       - userAuth: []
+       - adminAuth: []
       requestBody:
         required: true
         content:
@@ -37,11 +49,42 @@ paths:
       responses:
         '201':
           description: Created
+          links:
+            deleteUserByUserId:
+              operationId:  Delete user
+              parameters:
+                id: 1
         '404':
          $ref: '#/components/responses/requestBodyError'  
   /users/{id}:
     delete:
+      tags:
+        - users
       summary: Delete user
+      operationId : deleteUser
+      security:
+       - adminAuth: []
+      parameters:
+      - name: id
+        in: path
+        required: true
+        description: UserId
+        schema:
+            type : integer
+            minimum: 1
+      responses: 
+          '201':
+           description: user deleted
+          '401':
+           $ref: '#/components/responses/UnauthorizedError'
+          '501':
+           $ref: '#/components/responses/internalServerError'
+  /admin:
+    delete:
+      tags:
+        - admin
+      summary: not implemented
+      operationId : deleteUser
       security:
        - bearerAuth: []
       parameters:
@@ -54,20 +97,102 @@ paths:
             minimum: 1
       responses: 
           '201':
-           description: Created
+           description: user deleted
           '401':
            $ref: '#/components/responses/UnauthorizedError'
           '501':
-           $ref: '#/components/responses/internalServerError'
-        
+           $ref: '#/components/responses/internalServerError'     
 components:
+  schemas:
+    Order:
+      x-swagger-router-model: io.swagger.petstore.model.Order
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 10
+        petId:
+          type: integer
+          format: int64
+          example: 198772
+        quantity:
+          type: integer
+          format: int32
+          example: 7
+        shipDate:
+          type: string
+          format: date-time
+        status:
+          type: string
+          description: Order Status
+          enum:
+            - placed
+            - approved
+            - delivered
+          example: approved
+        complete:
+          type: boolean
+      xml:
+        name: order
+      type: object
+    Customer:
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 100000
+        username:
+          type: string
+          example: fehguy
+        address:
+          type: array
+          items:
+            $ref: '#/components/schemas/Address'
+          xml:
+            wrapped: true
+            name: addresses
+      xml:
+        name: customer
+      type: object
+    Address:
+      properties:
+        street:
+          type: string
+          example: 437 Lytton
+        city:
+          type: string
+          example: Palo Alto
+        state:
+          type: string
+          example: CA
+        zip:
+          type: string
+          example: 94301
+      xml:
+        name: address
+      type: object
+    Category:
+      x-swagger-router-model: io.swagger.petstore.model.Category
+      properties:
+        id:
+          type: integer
+          format: int64
+          example: 1
+        name:
+          type: string
+          example: Dogs
+      xml:
+        name: category
+      type: object
   securitySchemes:
-    bearerAuth:            # arbitrary name for the security scheme
+    userAuth:            # arbitrary name for the security scheme
       type: http
       scheme: bearer
       bearerFormat: JWT  
-  security:
-    - bearerAuth: [/users]   
+    adminAuth:            # arbitrary name for the security scheme
+      type: http
+      scheme: bearer
+      bearerFormat: JWT 
   responses:
     UnauthorizedError:
       description: Authentication information is missing or invalid
