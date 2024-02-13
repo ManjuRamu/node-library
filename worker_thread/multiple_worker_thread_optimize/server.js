@@ -2,11 +2,12 @@ const express = require('express');
 const app = express();
 const {Worker} = require('worker_threads')
 const thread_count = 4;
+const _count = 5000000000;
 
 function workerHandler() {
   return new Promise((res, rej) =>{
     let worker = new Worker("./worker.js", {
-      workerData:{thread_count}
+      workerData:{thread_count, _count}
     })
     worker.on("message", (data) =>{
       res(data)
@@ -33,7 +34,7 @@ app.get("/non-blocking", (req,res) =>{
 
 app.get("/blocking", (req,res) =>{
   let count = 0;
-  for (let i = 0; i < 5000000000; i++) {
+  for (let i = 0; i < _count; i++) {
      count++;
   }
     res.status(200).send({count})

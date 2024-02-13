@@ -1,6 +1,7 @@
 const {parentPort} = require('worker_threads')
 let count = 0;
-  for (let i = 0; i < 5000000000; i++) {
+const _count =  3500000000; 
+  for (let i = 0; i < _count; i++) {
      count++;
   }
 
